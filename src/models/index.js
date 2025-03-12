@@ -27,17 +27,24 @@ async function connectToDatabase() {
     await client.connect()
 }
 
-async function query(database_name, collection_name) {
+/**
+ * Query a MongoDB collection
+ * @param {string} database_name 
+ * @param {string} collection_name 
+ * @param {object} filter Filter used to search the collection
+ * @returns {list} A list of results, or an empty list if there's an error
+ */
+async function query(database_name, collection_name, filter={}) {
     let data = []
     try {
         await client.connect()
         const db = client.db(database_name)
         const collection = db.collection(collection_name)
-        data = await collection.find({}).toArray()
+        data = await collection.find(filter).toArray()
         console.log("Data retrieved:", data)
     } catch (error) {
         console.log("There was a problem fetching the data")
-        data = {}
+        data = []
     } finally {
         await client.close()
     }
