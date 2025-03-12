@@ -10,13 +10,15 @@ Purpose: Server script
 // ==============================================
 // Section: Imports
 // ===============================================
-import express from "express";
-const app = express()
-const port = process.env.PORT || 3000
+const express = require("express");
+const app = express();
+const port = process.env.PORT || 3000;
+const connectToDatabase = require("./src/database/connection.js");
+const cors = require("cors")
 
-app.get("/", (req, res) => {
-    res.send("Hello")
-})
+app.use(cors())
+app.use(express.static("public"))
+app.use("/", require("./src/routes/index.js"));
 
-app.listen(port)
-console.log(`Web server listening on port ${port}`)
+app.listen(port);
+console.log(`Web server listening on port ${port}`);
