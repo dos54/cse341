@@ -1,0 +1,12 @@
+### Should return a list of 3 contacts
+GET https://cse341-u4ne.onrender.com/contacts/
+
+### Should return John Doe's information
+GET https://cse341-u4ne.onrender.com/contacts/67d0fb407fc1e6fa8a214c22
+
+
+### Should return Jane Smith's information
+GET https://cse341-u4ne.onrender.com/contacts/67d0fb4c7fc1e6fa8a214c23
+
+### Should return Michael Johnson's information
+GET https://cse341-u4ne.onrender.com/contacts/67d0fb587fc1e6fa8a214c24
