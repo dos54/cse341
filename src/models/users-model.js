@@ -1,23 +1,23 @@
-const { query, addData, deleteData } = require(".");
+const { query, addData, deleteData } = require('.')
 
 async function getAllUsers() {
-  const data = await query("learning", "users");
-  return data;
+  const data = await query('learning', 'users')
+  return data
 }
 
 async function getUserById(id) {
-  const data = await query("learning", "users", { id: Number(id) });
-  return data[0];
+  const data = await query('learning', 'users', { id: Number(id) })
+  return data[0]
 }
 
 async function addUser(userData) {
-  const userId = await addData("learning", "users", userData);
-  return userId;
+  const userId = await addData('learning', 'users', userData)
+  return userId
 }
 
 async function deleteUserById(id) {
-  const result = await deleteData("learning", "users", { id: Number(id) });
-  return result;
+  const result = await deleteData('learning', 'users', { id: Number(id) })
+  return result
 }
 
 module.exports = {
@@ -25,4 +25,4 @@ module.exports = {
   getUserById,
   addUser,
   deleteUserById,
-};
+}

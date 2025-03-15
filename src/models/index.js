@@ -1,6 +1,6 @@
-require("dotenv").config();
-const { MongoClient, ServerApiVersion } = require("mongodb");
-const uri = process.env.DATABASE_URI;
+require('dotenv').config()
+const { MongoClient, ServerApiVersion } = require('mongodb')
+const uri = process.env.DATABASE_URI
 
 const client = new MongoClient(uri, {
   serverApi: {
@@ -8,24 +8,24 @@ const client = new MongoClient(uri, {
     strict: true,
     deprecationErrors: true,
   },
-});
+})
 
 async function run() {
   try {
-    await client.connect();
-    await client.db("admin").command({ ping: 1 });
+    await client.connect()
+    await client.db('admin').command({ ping: 1 })
     console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+      'Pinged your deployment. You successfully connected to MongoDB!'
+    )
   } finally {
-    await client.close();
+    await client.close()
   }
 }
 
-run().catch(console.dir);
+run().catch(console.dir)
 
 async function connectToDatabase() {
-  await client.connect();
+  await client.connect()
 }
 
 /**
@@ -36,49 +36,49 @@ async function connectToDatabase() {
  * @returns {list} A list of results, or an empty list if there's an error
  */
 async function query(database_name, collection_name, filter = {}) {
-  let data = [];
+  let data = []
   try {
-    await client.connect();
-    const db = client.db(database_name);
-    const collection = db.collection(collection_name);
-    data = await collection.find(filter).toArray();
-    console.log("Data retrieved:", data);
+    await client.connect()
+    const db = client.db(database_name)
+    const collection = db.collection(collection_name)
+    data = await collection.find(filter).toArray()
+    console.log('Data retrieved:', data)
   } catch (error) {
-    console.log("There was a problem fetching the data");
-    data = [];
+    console.log('There was a problem fetching the data:', error)
+    data = []
   } finally {
-    await client.close();
+    await client.close()
   }
-  return data;
+  return data
 }
 
 async function addData(database_name, collection_name, data) {
   try {
-    await client.connect();
-    const db = client.db(database_name);
-    const collection = db.collection(collection_name);
+    await client.connect()
+    const db = client.db(database_name)
+    const collection = db.collection(collection_name)
 
-    const result = await collection.insertOne(data);
-    return result.insertedId;
+    const result = await collection.insertOne(data)
+    return result.insertedId
   } catch (error) {
-    console.log("There was a problem inserting the data:", data);
+    console.log('There was a problem inserting the data:', error)
   } finally {
-    await client.close();
+    await client.close()
   }
 }
 
 async function deleteData(database_name, collection_name, filter) {
   try {
-    await client.connect();
-    const db = client.db(database_name);
-    const collection = db.collection(collection_name);
+    await client.connect()
+    const db = client.db(database_name)
+    const collection = db.collection(collection_name)
 
-    const result = await collection.deleteOne(filter);
-    return result.deletedCount;
+    const result = await collection.deleteOne(filter)
+    return result.deletedCount
   } catch (error) {
-    console.log("There was a problem deleting the specified data:", error);
+    console.log('There was a problem deleting the specified data:', error)
   } finally {
-    await client.close();
+    await client.close()
   }
 }
 
@@ -88,4 +88,4 @@ module.exports = {
   query,
   addData,
   deleteData,
-};
+}
