@@ -1,4 +1,4 @@
-### Should return a list of 3 contacts
+### Should return a list of all contacts
 GET https://cse341-u4ne.onrender.com/contacts/
 
 ### Should return John Doe's information
