@@ -1,16 +1,19 @@
 // ==============================================
 // Section: Imports
 // ===============================================
-const routes = require('express').Router()
+const router = require('express').Router()
 const lesson1Controller = require('../controllers/lesson1')
 
 // ==============================================
 // Section: Routes
 // ===============================================
-routes.get('/', lesson1Controller.homeRoute)
-routes.get('/professional', lesson1Controller.professionalRoute)
+router.use('/', require('./swagger.js'))
+router.use('/contacts', require('./contacts'))
+router.use('/users', require('./users.js'))
 
-routes.use('/contacts', require('./contacts'))
-routes.use('/users', require('./users.js'))
+router.get('/', (req, res) => {
+  res.send('<a href="/api-docs">Click here to see API docs</a>')
+})
+router.get('/professional', lesson1Controller.professionalRoute)
 
-module.exports = routes
+module.exports = router

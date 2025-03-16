@@ -5,6 +5,7 @@ const homeRoute = (req, res) => {
 }
 
 const professionalRoute = async (req, res) => {
+  //#swagger.tags=['Professional Activity / Lesson 1']
   try {
     const data = await query('professional', 'professional')
     res.json(data[0])

@@ -1,4 +1,4 @@
-@baseUrl = http://10.0.0.100:3000
+@baseUrl = https://cse341-u4ne.onrender.com
 
 ### Should return a list of all contacts
 GET {{baseUrl}}/contacts/
