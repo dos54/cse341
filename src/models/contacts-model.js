@@ -1,4 +1,4 @@
-const { query } = require('.')
+const { query, updateData, addData, deleteData } = require('.')
 
 /**
  *
@@ -19,7 +19,25 @@ async function getFirstContact(filter = {}) {
   return data[0]
 }
 
+async function addContact(data) {
+  const newContactId = await addData('cse341', 'contacts', data)
+  return newContactId
+}
+
+async function updateContactData(filter, data) {
+  const success = await updateData('cse341', 'contacts', filter, data)
+  return success
+}
+
+async function deleteContactData(filter) {
+  const success = await deleteData('cse341', 'contacts', filter)
+  return success > 0
+}
+
 module.exports = {
   getAllContacts,
   getFirstContact,
+  addContact,
+  updateContactData,
+  deleteContactData,
 }

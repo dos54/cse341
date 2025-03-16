@@ -1,12 +1,57 @@
+@baseUrl = http://10.0.0.100:3000
+
 ### Should return a list of all contacts
-GET https://cse341-u4ne.onrender.com/contacts/
+GET {{baseUrl}}/contacts/
 
 ### Should return John Doe's information
-GET https://cse341-u4ne.onrender.com/contacts/67d0fb407fc1e6fa8a214c22
-
+GET {{baseUrl}}/contacts/67d0fb407fc1e6fa8a214c22
 
 ### Should return Jane Smith's information
-GET https://cse341-u4ne.onrender.com/contacts/67d0fb4c7fc1e6fa8a214c23
+GET {{baseUrl}}/contacts/67d0fb4c7fc1e6fa8a214c23
 
 ### Should return Michael Johnson's information
-GET https://cse341-u4ne.onrender.com/contacts/67d0fb587fc1e6fa8a214c24
+GET {{baseUrl}}/contacts/67d0fb587fc1e6fa8a214c24
+
+### Add a contact named Joseph Smith
+# @name makejsmith
+POST {{baseUrl}}/contacts/
+Content-Type: application/json
+
+{
+    "firstName": "Joseph",
+    "lastName": "Smith",
+    "email": "josephsmith@byui.edu",
+    "favoriteColor": "Blue",
+    "birthday": "1805-12-23"
+}
+
+### Get the new contact id
+@newContactId = {{makejsmith.response.body.newContactId}}
+
+### Retrieve data for new contact
+GET {{baseUrl}}/contacts/{{newContactId}}
+
+### Change Joseph Smith's name to John Smith
+PUT {{baseUrl}}/contacts/{{newContactId}}
+Content-Type: application/json
+
+{
+    "firstName": "John"
+}
+
+### Make sure contact's name is changed correctly
+GET {{baseUrl}}/contacts/{{newContactId}}
+
+### Change it back to Joseph Smith
+PUT {{baseUrl}}/contacts/{{newContactId}}
+Content-Type: application/json
+
+{
+    "firstName": "Joseph"
+}
+
+### Make sure contact's name is changed correctly
+GET {{baseUrl}}/contacts/{{newContactId}}
+
+### Delete Joseph Smith
+DELETE {{baseUrl}}/contacts/{{newContactId}}
