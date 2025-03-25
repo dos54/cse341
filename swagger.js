@@ -28,7 +28,7 @@ const doc = {
     Book: generateSchemaFromJ2S(swaggerBookSchema),
     Review: generateSchemaFromJ2S(swaggerReviewSchema),
   },
-  host: '10.0.0.100:3000',
+  host: 'cse341-u4ne.onrender.com',
   schemes: ['https', 'http'],
 }
 
