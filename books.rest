@@ -1,0 +1,94 @@
+@baseUrl = http://10.0.0.100:3000/books
+
+### Get all books
+GET {{baseUrl}}/
+
+### Add a book: The Great Gatsby
+# @name addGatsby
+POST {{baseUrl}}/
+Content-Type: application/json
+
+{
+  "title": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "genre": "Fiction",
+  "publishedDate": "1925-04-10",
+  "summary": "A story of the mysteriously wealthy Jay Gatsby and his love for Daisy Buchanan.",
+  "isbn": "9780743273565",
+  "averageRating": 4.3
+}
+
+### Extract the new book ID
+@newBookId = {{addGatsby.response.body.newBookId}}
+
+### Get book by ID
+GET {{baseUrl}}/{{newBookId}}
+
+### Update book
+PUT {{baseUrl}}/{{newBookId}}
+Content-Type: application/json
+
+{
+  "title": "The Great Gatsby (Updated)"
+}
+
+### Confirm updated title
+GET {{baseUrl}}/{{newBookId}}
+
+### Revert title
+PUT {{baseUrl}}/{{newBookId}}
+Content-Type: application/json
+
+{
+  "title": "The Great Gatsby"
+}
+
+### Confirm reverted title
+GET {{baseUrl}}/{{newBookId}}
+
+### Get all reviews for this book (should be empty initially)
+GET {{baseUrl}}/{{newBookId}}/reviews
+
+### Add a review to this book
+# @name addReview
+POST {{baseUrl}}/{{newBookId}}/reviews
+Content-Type: application/json
+
+{
+  "reviewerName": "Alice Thompson",
+  "rating": 5,
+  "comment": "A timeless classic that captures the disillusionment of the American Dream.",
+  "createdAt": "2025-03-22T00:00:00.000Z"
+}
+
+### Extract review ID
+@newReviewId = {{addReview.response.body.newReviewId}}
+
+### Get specific review by ID
+GET {{baseUrl}}/reviews/{{newReviewId}}
+
+### Update the review
+PUT {{baseUrl}}/reviews/{{newReviewId}}
+Content-Type: application/json
+
+{
+  "comment": "Updated: Still a masterpiece with profound social commentary."
+}
+
+### Confirm updated review
+GET {{baseUrl}}/reviews/{{newReviewId}}
+
+### Get all reviews (not scoped to a book)
+GET {{baseUrl}}/reviews/all
+
+### Delete the review
+DELETE {{baseUrl}}/reviews/{{newReviewId}}
+
+### Confirm review deletion (should 404 or be excluded)
+GET {{baseUrl}}/reviews/{{newReviewId}}
+
+### Delete the book
+DELETE {{baseUrl}}/{{newBookId}}
+
+### Confirm book deletion
+GET {{baseUrl}}/{{newBookId}}

@@ -1,4 +1,4 @@
-const { query, addData, deleteData } = require('.')
+const { query, addData, deleteData } = require('../database')
 
 async function getAllUsers() {
   const data = await query('learning', 'users')

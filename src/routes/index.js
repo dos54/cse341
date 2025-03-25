@@ -10,6 +10,8 @@ const lesson1Controller = require('../controllers/lesson1')
 router.use('/', require('./swagger.js'))
 router.use('/contacts', require('./contacts'))
 router.use('/users', require('./users.js'))
+router.use('/calculate', require('./calculate.js'))
+router.use('/books', require('./books.js'))
 
 router.get('/', (req, res) => {
   res.send('<a href="/api-docs">Click here to see API docs</a>')

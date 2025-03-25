@@ -1,6 +1,14 @@
 const contactsModel = require('../models/contacts-model')
 const ObjectId = require('mongodb').ObjectId
 
+/**
+ * Retrieves all contacts from the database.
+ * @async
+ * @function getAll
+ * @param {import('express').Request} req - Express request object.
+ * @param {import('express').Response} res - Express response object.
+ * @returns {Promise<void>} Sends a JSON response with all contacts.
+ */
 const getAll = async (req, res) => {
   //#swagger.tags=['Contacts']
 
@@ -10,6 +18,14 @@ const getAll = async (req, res) => {
   })
 }
 
+/**
+ * Retrieves a single contact by ID.
+ * @async
+ * @function getFirstContact
+ * @param {import('express').Request} req - Express request object, contains the contact ID in params.
+ * @param {import('express').Response} res - Express response object.
+ * @returns {Promise<void>} Sends a JSON response with the contact data or an error message.
+ */
 const getFirstContact = async (req, res) => {
   //#swagger.tags=['Contacts']
 
@@ -27,15 +43,31 @@ const getFirstContact = async (req, res) => {
   })
 }
 
+/**
+ * Adds a new contact to the database.
+ * @async
+ * @function addNewContact
+ * @param {import('express').Request} req - Express request object, contains new contact data in body.
+ * @param {import('express').Response} res - Express response object.
+ * @returns {Promise<void>} Sends a JSON response with the new contact's ID.
+ */
 const addNewContact = async (req, res) => {
   //#swagger.tags=['Contacts']
 
   await contactsModel.addContact(req.body).then((contactId) => {
     res.setHeader('Content-Type', 'application/json')
-    res.status(200).json({ newContactId: contactId })
+    res.status(201).json({ newContactId: contactId })
   })
 }
 
+/**
+ * Updates an existing contact by ID.
+ * @async
+ * @function updateContactData
+ * @param {import('express').Request} req - Express request object, contains updated contact data in body.
+ * @param {import('express').Response} res - Express response object.
+ * @returns {Promise<void>} Sends a 204 status if successful, 404 if not found.
+ */
 const updateContactData = async (req, res) => {
   //#swagger.tags=['Contacts']
 
@@ -54,6 +86,14 @@ const updateContactData = async (req, res) => {
     })
 }
 
+/**
+ * Deletes a contact by ID.
+ * @async
+ * @function deleteContact
+ * @param {import('express').Request} req - Express request object, contains contact ID in params.
+ * @param {import('express').Response} res - Express response object.
+ * @returns {Promise<void>} Sends a 204 status if successful, 404 if not found.
+ */
 const deleteContact = async (req, res) => {
   //#swagger.tags=['Contacts']
 

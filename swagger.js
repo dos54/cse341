@@ -1,9 +1,11 @@
 const swaggerAutogen = require('swagger-autogen')()
 
 const doc = {
+  swagger: '2.0',
   info: {
-    title: 'Contacts Api',
-    description: 'Contacts Api',
+    title: 'Contacts API',
+    description: 'Contacts API',
+    version: '1.0.0',
   },
   host: '10.0.0.100:3000',
   schemes: ['https', 'http'],

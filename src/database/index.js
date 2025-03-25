@@ -77,6 +77,22 @@ async function addData(database_name, collection_name, data) {
   }
 }
 
+async function addMultipleData(database_name, collection_name, dataList) {
+  try {
+    await client.connect()
+    const db = client.db(database_name)
+    const collection = db.collection(collection_name)
+
+    const result = await collection.insertMany(dataList)
+    return result.insertedIds
+  } catch (error) {
+    console.log('There was a problem inserting multiple documents:', error)
+    return null
+  } finally {
+    await client.close()
+  }
+}
+
 /**
  * Deletes a document from a specified collection in a MongoDB database.
  * @async
@@ -119,7 +135,7 @@ async function updateData(database_name, collection_name, filter, data) {
     const collection = db.collection(collection_name)
 
     const result = await collection.updateOne(filter, { $set: data })
-    return result.acknowledged
+    return result.matchedCount > 0
   } catch (error) {
     console.log('There was a problem updating the specified data:', error)
     return false
@@ -133,6 +149,7 @@ module.exports = {
   connectToDatabase,
   query,
   addData,
+  addMultipleData,
   deleteData,
   updateData,
 }

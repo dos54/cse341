@@ -1,4 +1,4 @@
-const query = require('../models/index').query
+const query = require('../database/index').query
 
 const homeRoute = (req, res) => {
   res.send('Hello')

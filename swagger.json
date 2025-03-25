@@ -1,17 +1,27 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Contacts Api",
-    "description": "Contacts Api",
+    "title": "Contacts API",
+    "description": "Contacts API",
     "version": "1.0.0"
   },
-  "host": "cse341-u4ne.onrender.com",
+  "host": "10.0.0.100:3000",
   "basePath": "/",
   "schemes": [
     "https",
     "http"
   ],
   "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/professional": {
       "get": {
         "tags": [
@@ -24,6 +34,16 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api-docs": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }

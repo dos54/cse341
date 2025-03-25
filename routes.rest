@@ -20,7 +20,7 @@ Content-Type: application/json
 {
     "firstName": "Joseph",
     "lastName": "Smith",
-    "email": "josephsmith@byui.edu",
+    "email": "josephsmith",
     "favoriteColor": "Blue",
     "birthday": "1805-12-23"
 }
