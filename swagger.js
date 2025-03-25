@@ -1,4 +1,21 @@
 const swaggerAutogen = require('swagger-autogen')()
+const j2s = require('joi-to-swagger')
+const bookSchema = require('./src/schemas/bookSchema')
+const reviewSchema = require('./src/schemas/reviewSchema')
+
+const { swagger: swaggerBookSchema } = j2s(bookSchema.bookSchema)
+const { swagger: swaggerReviewSchema } = j2s(reviewSchema.reviewSchema)
+
+function generateSchemaFromJ2S(rawJ2SSchema) {
+  const output = {}
+  const props = rawJ2SSchema.properties || {}
+  for (const key in props) {
+    if (props[key].example !== undefined) {
+      output[key] = props[key].example
+    }
+  }
+  return output
+}
 
 const doc = {
   swagger: '2.0',
@@ -6,6 +23,10 @@ const doc = {
     title: 'Contacts API',
     description: 'Contacts API',
     version: '1.0.0',
+  },
+  definitions: {
+    Book: generateSchemaFromJ2S(swaggerBookSchema),
+    Review: generateSchemaFromJ2S(swaggerReviewSchema),
   },
   host: '10.0.0.100:3000',
   schemes: ['https', 'http'],

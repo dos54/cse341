@@ -72,7 +72,10 @@ PUT {{baseUrl}}/reviews/{{newReviewId}}
 Content-Type: application/json
 
 {
-  "comment": "Updated: Still a masterpiece with profound social commentary."
+  "reviewerName": "Alice Thompson",
+  "rating": 5,
+  "comment": "Updated: Still a masterpiece with profound social commentary.",
+  "createdAt": "2025-03-22T00:00:00.000Z"
 }
 
 ### Confirm updated review
